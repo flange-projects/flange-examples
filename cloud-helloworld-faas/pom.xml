@@ -71,7 +71,7 @@
 							</annotationProcessorPath>
 						</annotationProcessorPaths>
 						<annotationProcessors>
-							<annotationProcessor>dev.flange.build.cloud.FlangeCloudProcessor</annotationProcessor>
+							<annotationProcessor>dev.flange.build.cloud.FlangeCloudAnnotationProcessor</annotationProcessor>
 						</annotationProcessors>
 					</configuration>
 				</plugin>
