@@ -32,7 +32,7 @@ import dev.flange.example.cloud.helloworld_faas.service.api.MessageService;
  * @author Garret Wilson
  */
 @ServiceConsumer(MessageService.class)
-public class ExampleFaasApp implements Runnable {
+public class HelloWorldFaasApp implements Runnable {
 
 	private final MessageService messageService;
 
@@ -40,7 +40,7 @@ public class ExampleFaasApp implements Runnable {
 	 * Message service constructor
 	 * @param messageService The message service to use.
 	 */
-	public ExampleFaasApp(@Nonnull final MessageService messageService) {
+	public HelloWorldFaasApp(@Nonnull final MessageService messageService) {
 		this.messageService = requireNonNull(messageService);
 	}
 
@@ -82,7 +82,7 @@ public class ExampleFaasApp implements Runnable {
 		}
 
 		final MessageService messageService = Flange.getDependencyConcern().getDependencyInstanceByType(MessageService.class);
-		final ExampleFaasApp app = new ExampleFaasApp(messageService);
+		final HelloWorldFaasApp app = new HelloWorldFaasApp(messageService);
 		app.run();
 	}
 
