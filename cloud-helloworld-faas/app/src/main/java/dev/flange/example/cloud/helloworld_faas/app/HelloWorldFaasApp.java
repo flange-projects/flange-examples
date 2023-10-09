@@ -73,7 +73,7 @@ public class HelloWorldFaasApp implements FlangeCloudApplication {
 
 		final MessageService messageService = Flange.getDependencyConcern().getDependencyInstanceByType(MessageService.class);
 		final HelloWorldFaasApp app = new HelloWorldFaasApp(messageService);
-		app.run();
+		app.start();
 	}
 
 }
