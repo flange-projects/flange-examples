@@ -23,7 +23,6 @@ import java.util.concurrent.*;
 
 import javax.annotation.*;
 
-import dev.flange.Flange;
 import dev.flange.cloud.ServiceConsumer;
 import dev.flange.cloud.application.FlangeCloudApplication;
 import dev.flange.example.cloud.helloworld_faas.service.api.MessageService;
@@ -66,14 +65,10 @@ public class HelloWorldFaasApp implements FlangeCloudApplication {
 
 	/**
 	 * Main application entry point.
-	 * @param args application arguments.
+	 * @param args The application arguments.
 	 */
-	public static void main(final String[] args) {
-		FlangeCloudApplication.configureFlangeFromArgs(args);
-
-		final MessageService messageService = Flange.getDependencyConcern().getDependencyInstanceByType(MessageService.class);
-		final HelloWorldFaasApp app = new HelloWorldFaasApp(messageService);
-		app.start();
+	public static void main(@Nonnull final String[] args) {
+		FlangeCloudApplication.start(HelloWorldFaasApp.class, args);
 	}
 
 }
