@@ -25,6 +25,7 @@ import javax.annotation.*;
 
 import dev.flange.Flange;
 import dev.flange.cloud.ServiceConsumer;
+import dev.flange.cloud.application.FlangeCloudApplication;
 import dev.flange.example.cloud.helloworld_faas.service.api.MessageService;
 
 /**
@@ -32,7 +33,7 @@ import dev.flange.example.cloud.helloworld_faas.service.api.MessageService;
  * @author Garret Wilson
  */
 @ServiceConsumer(MessageService.class)
-public class HelloWorldFaasApp implements Runnable {
+public class HelloWorldFaasApp implements FlangeCloudApplication {
 
 	private final MessageService messageService;
 
@@ -68,18 +69,7 @@ public class HelloWorldFaasApp implements Runnable {
 	 * @param args application arguments.
 	 */
 	public static void main(final String[] args) {
-		for(int i = 0; i < args.length - 1; i++) { //TODO detect configuration in `flange-config.*` as well
-			if(args[i].equals("--flange-env")) { //TODO use constants; improve with CLI library
-				System.out.println("Using Flange environment `%s`.".formatted(args[i + 1])); //TODO log as debug
-				System.setProperty("flange.env", args[i + 1]); //TODO use constants
-			} else if(args[i].equals("--flange-platform") && args[i + 1].equals("aws")) { //TODO use constants; improve with CLI library
-				System.out.println("Selected Flange AWS cloud platform."); //TODO log as debug
-				System.setProperty("flange.platform", "aws"); //TODO use constants
-			} else if(args[i].equals("--flange-platform-aws-profile")) { //TODO use constants; improve with CLI library
-				System.out.println("Using Flange AWS profile `%s`.".formatted(args[i + 1])); //TODO log as debug
-				System.setProperty("aws.profile", args[i + 1]); //detected and accessed directly by the AWS SDK TODO use constants
-			}
-		}
+		FlangeCloudApplication.configureFlangeFromArgs(args);
 
 		final MessageService messageService = Flange.getDependencyConcern().getDependencyInstanceByType(MessageService.class);
 		final HelloWorldFaasApp app = new HelloWorldFaasApp(messageService);
