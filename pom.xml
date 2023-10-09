@@ -33,7 +33,12 @@
 		<url>https://bitbucket.org/globalmentor/flange-examples</url>
 	</scm>
 
+	<properties>
+		<flange.version>0.1.0-SNAPSHOT</flange.version>
+	</properties>
+
 	<modules>
+		<module>cloud-helloworld-faas</module>
 	</modules>
 
 	<dependencyManagement>
@@ -41,7 +46,7 @@
 			<dependency>
 				<groupId>dev.flange</groupId>
 				<artifactId>flange-bom</artifactId>
-				<version>0.1.0-SNAPSHOT</version>
+				<version>${flange.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
