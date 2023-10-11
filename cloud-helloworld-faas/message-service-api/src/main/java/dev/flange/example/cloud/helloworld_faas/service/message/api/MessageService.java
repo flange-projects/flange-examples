@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package dev.flange.example.cloud.helloworld_faas.service.api;
+package dev.flange.example.cloud.helloworld_faas.service.message.api;
 
 import java.util.concurrent.CompletableFuture;
 

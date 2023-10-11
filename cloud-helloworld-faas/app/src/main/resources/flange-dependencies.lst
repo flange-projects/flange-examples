@@ -1,1 +1,1 @@
-dev.flange.example.cloud.helloworld_faas.service.impl.MessageServiceImpl
+dev.flange.example.cloud.helloworld_faas.service.message.impl.MessageServiceImpl

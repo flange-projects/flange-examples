@@ -25,7 +25,7 @@ import javax.annotation.*;
 
 import dev.flange.cloud.ServiceConsumer;
 import dev.flange.cloud.application.FlangeCloudApplication;
-import dev.flange.example.cloud.helloworld_faas.service.api.MessageService;
+import dev.flange.example.cloud.helloworld_faas.service.message.api.MessageService;
 
 /**
  * Example application showing usage of a Flange Function-as-a-Service (FaaS).

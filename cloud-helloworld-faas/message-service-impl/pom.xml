@@ -10,7 +10,7 @@
 
 	<artifactId>flange-example-cloud-helloworld-faas-service-impl</artifactId>
 
-	<name>Cloud - Hello World: FaaS &gt; Service Implementation</name>
+	<name>Cloud - Hello World: FaaS &gt; Message Service Impl</name>
 	<description>Flange Cloud Hello World FaaS example application service implementation.</description>
 
 	<dependencies>

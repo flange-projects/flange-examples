@@ -13,8 +13,8 @@
 
 	<modules>
 		<module>app</module>
-		<module>service-api</module>
-		<module>service-impl</module>
+		<module>message-service-api</module>
+		<module>message-service-impl</module>
 	</modules>
 
 	<name>Cloud - Hello World: FaaS</name>

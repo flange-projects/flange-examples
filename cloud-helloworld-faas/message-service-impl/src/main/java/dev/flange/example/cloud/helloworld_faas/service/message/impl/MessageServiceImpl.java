@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package dev.flange.example.cloud.helloworld_faas.service.impl;
+package dev.flange.example.cloud.helloworld_faas.service.message.impl;
 
 import static java.util.concurrent.CompletableFuture.*;
 
 import java.util.concurrent.CompletableFuture;
 
 import dev.flange.cloud.CloudFunctionService;
-import dev.flange.example.cloud.helloworld_faas.service.api.MessageService;
+import dev.flange.example.cloud.helloworld_faas.service.message.api.MessageService;
 
 /**
  * Implementation of a service for producing messages.
