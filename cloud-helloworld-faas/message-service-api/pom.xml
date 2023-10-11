@@ -8,10 +8,10 @@
 		<version>0.1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>flange-example-cloud-helloworld-faas-service-api</artifactId>
+	<artifactId>flange-example-cloud-helloworld-faas-message-service-api</artifactId>
 
 	<name>Cloud - Hello World: FaaS &gt; Message Service API</name>
-	<description>Flange Cloud Hello World FaaS example application service API.</description>
+	<description>Flange Cloud Hello World FaaS example message service API.</description>
 
 	<dependencies>
 		<dependency>
