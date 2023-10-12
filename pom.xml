@@ -39,6 +39,7 @@
 
 	<modules>
 		<module>cloud-helloworld-faas</module>
+		<module>cloud-hellouser-faas</module>
 	</modules>
 
 	<dependencyManagement>
