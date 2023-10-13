@@ -1,0 +1,2 @@
+dev.flange.example.cloud.hellouser_faas.service.message.impl.MessageServiceImpl
+dev.flange.example.cloud.hellouser_faas.service.user.impl.UserServiceImpl

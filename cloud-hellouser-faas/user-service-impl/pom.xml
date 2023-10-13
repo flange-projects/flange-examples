@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>dev.flange</groupId>
+		<artifactId>flange-example-cloud-hellouser-faas</artifactId>
+		<version>0.1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>flange-example-cloud-hellouser-faas-user-service-impl</artifactId>
+
+	<name>Cloud - Hello User: FaaS &gt; User Service Impl</name>
+	<description>Flange Cloud Hello User FaaS example user service implementation.</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>dev.flange</groupId>
+			<artifactId>flange-example-cloud-hellouser-faas-user-service-api</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>dev.flange</groupId>
+			<artifactId>flange-cloud</artifactId>
+		</dependency>
+
+		<!-- TODO Investigate adding dynamically with Flange,
+		or mark as provided and add separately for deployment;
+		marking as `optional` still includes dependency in AWS Lambda ZIP. -->
+		<dependency>
+			<groupId>dev.flange</groupId>
+			<artifactId>flange-cloud-aws</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- TODO Investigate adding dynamically with Flange,
+		or mark as provided and add separately for deployment;
+		marking as `optional` still includes dependency in AWS Lambda ZIP. -->
+		<dependency>
+			<groupId>dev.flange</groupId>
+			<artifactId>flange-spring-simple-provider</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- TODO Investigate adding dynamically with Flange,
+		or mark as provided and add separately for deployment;
+		marking as `optional` still includes dependency in AWS Lambda ZIP. -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-lambda-java-log4j2</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- TODO Investigate adding dynamically with Flange,
+		or mark as provided and add separately for deployment;
+		marking as `optional` still includes dependency in AWS Lambda ZIP. -->
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j2-impl</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- TODO Investigate adding dynamically with Flange,
+		or mark as provided and add separately for deployment;
+		marking as `optional` still includes dependency in AWS Lambda ZIP. -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId> <!-- commons-logging used by AWS SDK -->
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<!-- TODO find a way to add configurations dynamically, probably by developing a new Maven plugin and delegating to the Maven Assembly Plugin -->
+							<finalName>UserServiceImpl</finalName> <!-- TODO include project in base name when generating from Maven plugin -->
+							<appendAssemblyId>true</appendAssemblyId>
+							<descriptors>
+								<descriptor>${project.build.directory}/generated-sources/annotations/assembly-UserServiceImpl-aws-lambda.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

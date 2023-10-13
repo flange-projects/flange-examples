@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package dev.flange.example.cloud.helloworld_faas.app;
+package dev.flange.example.cloud.hellouser_faas.app;
 
 import static java.util.Objects.*;
 import static java.util.concurrent.TimeUnit.*;
@@ -25,14 +25,14 @@ import javax.annotation.*;
 
 import dev.flange.cloud.ServiceConsumer;
 import dev.flange.cloud.application.FlangeCloudApplication;
-import dev.flange.example.cloud.helloworld_faas.service.message.api.MessageService;
+import dev.flange.example.cloud.hellouser_faas.service.message.api.MessageService;
 
 /**
- * Example application showing usage of a Flange Function-as-a-Service (FaaS).
+ * Example application illustrating two cloud functions, one invoking the other..
  * @author Garret Wilson
  */
 @ServiceConsumer(MessageService.class)
-public class HelloWorldFaasApp implements FlangeCloudApplication {
+public class HelloUserFaasApp implements FlangeCloudApplication {
 
 	private final MessageService messageService;
 
@@ -40,18 +40,18 @@ public class HelloWorldFaasApp implements FlangeCloudApplication {
 	 * Message service constructor
 	 * @param messageService The message service to use.
 	 */
-	public HelloWorldFaasApp(@Nonnull final MessageService messageService) {
+	public HelloUserFaasApp(@Nonnull final MessageService messageService) {
 		this.messageService = requireNonNull(messageService);
 	}
 
 	@Override
 	public void run() {
-		final CompletableFuture<String> futureGreeting = messageService.getGreeting().completeOnTimeout("Hi (timeout)", 5, SECONDS);
-		final CompletableFuture<String> futureName = messageService.getName().completeOnTimeout("Everybody (timeout)", 5, SECONDS);
+		final String username = "jdoe"; //hard-coded username for purposes of example
+		final CompletableFuture<String> futureGreeting = messageService.getGreetingForUser(username).completeOnTimeout("Howdy! (timeout)", 10, SECONDS);
 
 		final String message;
 		try {
-			message = futureGreeting.thenCombine(futureName, (greeting, name) -> "%s, %s!".formatted(greeting, name)).get();
+			message = futureGreeting.get();
 		} catch(final InterruptedException interruptedException) {
 			throw new RuntimeException(interruptedException);
 		} catch(final ExecutionException exceptionExecutionException) {
@@ -68,7 +68,7 @@ public class HelloWorldFaasApp implements FlangeCloudApplication {
 	 * @param args The application arguments.
 	 */
 	public static void main(@Nonnull final String[] args) {
-		FlangeCloudApplication.start(HelloWorldFaasApp.class, args);
+		FlangeCloudApplication.start(HelloUserFaasApp.class, args);
 	}
 
 }
