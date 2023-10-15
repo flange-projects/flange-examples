@@ -29,6 +29,12 @@ import javax.annotation.*;
  */
 public record UserProfile(@Nonnull String username, @Nonnull String firstName, @Nonnull String lastName) {
 
+	/**
+	 * Argument validation constructor.
+	 * @param username The user's login identifier.
+	 * @param firstName The first name of the user.
+	 * @param lastName The last name of the user.
+	 */
 	public UserProfile {
 		requireNonNull(username);
 		requireNonNull(firstName);
