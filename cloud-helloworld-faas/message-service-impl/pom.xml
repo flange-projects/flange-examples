@@ -47,7 +47,7 @@
 							<finalName>MessageServiceImpl</finalName> <!-- TODO include project in base name when generating from Maven plugin -->
 							<appendAssemblyId>true</appendAssemblyId>
 							<descriptors>
-								<descriptor>${project.build.directory}/generated-sources/annotations/assembly-MessageServiceImpl-aws-lambda.xml</descriptor>
+								<descriptor>${annotationsGeneratedSourcesDirectory}/assembly-MessageServiceImpl-aws-lambda.xml</descriptor>
 							</descriptors>
 						</configuration>
 					</execution>
