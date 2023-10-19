@@ -47,20 +47,19 @@ public class HelloUserFaasApp implements FlangeCloudApplication {
 	@Override
 	public void run() {
 		final String username = "jdoe"; //hard-coded username for purposes of example
-		final CompletableFuture<String> futureGreeting = messageService.getGreetingForUser(username).completeOnTimeout("Howdy! (timeout)", 10, SECONDS);
 
-		final String message;
 		try {
-			message = futureGreeting.get();
-		} catch(final InterruptedException interruptedException) {
-			throw new RuntimeException(interruptedException);
-		} catch(final ExecutionException exceptionExecutionException) {
-			final Throwable cause = exceptionExecutionException;
+			messageService.getGreetingForUser(username)
+					//provide fallback value on timeout
+					.completeOnTimeout("Howdy!", 10, SECONDS)
+					//print "Hello, Jay Doe!", or a variation if timeout(s)
+					.thenAccept(System.out::println)
+					//wait until finished before exiting the application
+					.join();
+		} catch(final CompletionException completionException) {
+			final Throwable cause = completionException.getCause(); //process underlying exception as appropriate
 			System.err.println("Error accessing message service: %s".formatted(cause.getMessage()));
-			throw cause instanceof RuntimeException runtimeException ? runtimeException : new RuntimeException(cause);
 		}
-
-		System.out.println(message);
 	}
 
 	/**

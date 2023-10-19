@@ -48,23 +48,20 @@ public class MessageServiceImpl implements MessageService {
 
 	/**
 	 * {@inheritDoc}
-	 * @implSpec This implementation calls {@link UserService#getUserProfileByUsername(String)}.
+	 * @implSpec This implementation calls {@link UserService#findUserProfileByUsername(String)}.
 	 */
 	@Override
 	public CompletableFuture<String> getGreetingForUser(final String username) {
-		final CompletableFuture<String> futureUserDisplayName = userService.getUserProfileByUsername(username)
+		return userService.findUserProfileByUsername(username)
 				//make sure user exists
-				.thenApply(userProfile -> {
-					if(userProfile == null) {
-						throw new IllegalArgumentException("No user with username `%s`.".formatted(username));
-					}
-					return userProfile;
-				})
-				//determine user display name from profile
+				.thenApply(userProfile -> userProfile.orElseThrow( //
+						() -> new IllegalArgumentException("No user with username `%s`.".formatted(username))))
+				//format display name from user profile as "<first> <last>"
 				.thenApply(user -> "%s %s".formatted(user.firstName(), user.lastName()))
 				//if timeout, simply use the login username as the display name
-				.completeOnTimeout(username + " (timeout)", 5, SECONDS);
-		return futureUserDisplayName.thenApply("Hello, %s!"::formatted);
+				.completeOnTimeout(username, 5, SECONDS)
+				//format greeting
+				.thenApply("Hello, %s!"::formatted);
 	}
 
 }

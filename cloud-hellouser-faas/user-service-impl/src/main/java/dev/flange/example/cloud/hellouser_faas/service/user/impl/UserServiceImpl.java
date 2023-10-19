@@ -41,8 +41,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public CompletableFuture<UserProfile> getUserProfileByUsername(final String username) {
-		return completedFuture(userDatabase.get(requireNonNull(username)));
+	public CompletableFuture<Optional<UserProfile>> findUserProfileByUsername(final String username) {
+		return completedFuture(Optional.ofNullable(userDatabase.get(requireNonNull(username))));
 	}
 
 }
