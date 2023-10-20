@@ -46,21 +46,23 @@ public class HelloWorldFaasApp implements FlangeCloudApplication {
 
 	@Override
 	public void run() {
-		final CompletableFuture<String> futureGreeting = messageService.getGreeting().completeOnTimeout("Hi (timeout)", 5, SECONDS);
-		final CompletableFuture<String> futureName = messageService.getName().completeOnTimeout("Everybody (timeout)", 5, SECONDS);
+		final CompletableFuture<String> futureGreeting = messageService.getGreeting() //
+				.completeOnTimeout("Hi", 5, SECONDS);
+		final CompletableFuture<String> futureName = messageService.getName() //
+				.completeOnTimeout("Everybody", 5, SECONDS);
 
-		final String message;
 		try {
-			message = futureGreeting.thenCombine(futureName, (greeting, name) -> "%s, %s!".formatted(greeting, name)).get();
-		} catch(final InterruptedException interruptedException) {
-			throw new RuntimeException(interruptedException);
-		} catch(final ExecutionException exceptionExecutionException) {
-			final Throwable cause = exceptionExecutionException;
+			futureGreeting
+					//format greeting
+					.thenCombine(futureName, (greeting, name) -> "%s, %s!".formatted(greeting, name))
+					//print "Hello, World!", or a variation if timeout(s)
+					.thenAccept(System.out::println)
+					//wait until finished before exiting the application
+					.join();
+		} catch(final CompletionException completionException) {
+			final Throwable cause = completionException.getCause(); //process underlying exception as appropriate
 			System.err.println("Error accessing message service: %s".formatted(cause.getMessage()));
-			throw cause instanceof RuntimeException runtimeException ? runtimeException : new RuntimeException(cause);
 		}
-
-		System.out.println(message);
 	}
 
 	/**

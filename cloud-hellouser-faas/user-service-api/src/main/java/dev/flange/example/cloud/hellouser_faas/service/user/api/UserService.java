@@ -16,6 +16,7 @@
 
 package dev.flange.example.cloud.hellouser_faas.service.user.api;
 
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 import javax.annotation.*;
@@ -32,8 +33,8 @@ public interface UserService {
 	/**
 	 * Finds the profile for a user with the given username.
 	 * @param username The username of the user the profile of which to be retrieved.
-	 * @return The user's profile; the future will return <code>null</code> if the user does not exist.
+	 * @return The user's profile, which will be equal to {@link Optional#empty()} if the user does not exist.
 	 */
-	CompletableFuture<UserProfile> getUserProfileByUsername(@Nonnull String username); //TODO improve with `Optional<UserProfile>`
+	CompletableFuture<Optional<UserProfile>> findUserProfileByUsername(@Nonnull String username);
 
 }
