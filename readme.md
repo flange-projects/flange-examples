@@ -1,3 +1,3 @@
-# Flange Cloud Hello World FaaS Example
+# Flange™ Examples
 
-Illustrates invoking a single cloud function from an application.
+Collection of example applications illustrating various uses of Flange™ and Flange Cloud™.
