@@ -28,7 +28,7 @@ import dev.flange.cloud.application.FlangeCloudApplication;
 import dev.flange.example.cloud.hellouser_faas.service.message.api.MessageService;
 
 /**
- * Example application illustrating two cloud functions, one invoking the other..
+ * Example application illustrating two cloud functions, one invoking the other.
  * @author Garret Wilson
  */
 @ServiceConsumer(MessageService.class)
